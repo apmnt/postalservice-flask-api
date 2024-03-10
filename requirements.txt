@@ -1,2 +1,10 @@
 Flask==3.0.0
 postalservice
+aiohttp
+httpx
+cryptography
+jose
+python_jose
+setuptools
+bs4
+lxml
