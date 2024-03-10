@@ -1,9 +1,11 @@
 import asyncio
 from flask import Flask
 from flask import request
+from flask_cors import CORS
 import postalservice as ps
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/')
 def home():
