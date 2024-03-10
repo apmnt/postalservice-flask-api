@@ -16,6 +16,8 @@ def after_request(response):
 
 @app.route('/')
 def home():
+    if request.args.get('site', '') == 'mercari':
+        return "mercari()"
     return 'Hello, World!'
 
 @app.route('/about')
