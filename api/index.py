@@ -17,8 +17,22 @@ def after_request(response):
 @app.route('/')
 def home():
     if request.args.get('site', '') == 'mercari':
-        return "mercari()"
-    return 'Hello, World!'
+
+        mercari = ps.MercariService()
+        keyword = request.args.get('keyword', '')
+        size = request.args.get('size', '')
+        result = mercari.get_search_results({'keyword': keyword, 'size': size})
+        return result.to_json()
+
+    if request.args.get('site', '') == 'fril':
+
+        fril = ps.FrilService()
+        keyword = request.args.get('keyword', '')
+        size = request.args.get('size', '')
+        result = asyncio.run(fril.get_search_results_async({'keyword': keyword, 'size': size}))
+        return result.to_json()
+        
+    return 'Hello, World! Hello, API!'
 
 @app.route('/about')
 def about():
