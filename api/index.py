@@ -1,4 +1,4 @@
-import asyncio
+# import asyncio
 from flask import Flask
 from flask import request
 import postalservice as ps
@@ -21,11 +21,11 @@ def mercari():
     result = mercari.get_search_results({'keyword': keyword, 'size': size})
     return result.to_json()
 
-@app.route('/fril')
-def fril():
-    fril = ps.FrilService()
-    keyword = request.args.get('keyword', '')
-    size = request.args.get('size', '')
-    result = asyncio.run(fril.get_search_results_async({'keyword': keyword, 'size': size}))
-    return result.to_json()
+# @app.route('/fril')
+# def fril():
+#     fril = ps.FrilService()
+#     keyword = request.args.get('keyword', '')
+#     size = request.args.get('size', '')
+#     result = asyncio.run(fril.get_search_results_async({'keyword': keyword, 'size': size}))
+#     return result.to_json()
 
