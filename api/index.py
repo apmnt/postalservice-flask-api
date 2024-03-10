@@ -7,6 +7,11 @@ import postalservice as ps
 app = Flask(__name__)
 CORS(app)
 
+@app.after_request
+def after_request(response):
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
 @app.route('/')
 def home():
     return 'Hello, World!'
