@@ -25,7 +25,7 @@ def home():
         mercari = ps.MercariService()
         keyword = request.args.get("keyword", "")
         size = request.args.get("size", "")
-        page = request.args.get("page", "")
+        page = int(request.args.get("page", ""))
         if page == "":
             page = 1
         result = mercari.get_search_results(
@@ -38,7 +38,9 @@ def home():
         fril = ps.FrilService()
         keyword = request.args.get("keyword", "")
         size = request.args.get("size", "")
-        page = request.args.get("page", "")
+        page = int(request.args.get("page", ""))
+        if page == "":
+            page = 1
         result = asyncio.run(
             fril.get_search_results_async(
                 {"keyword": keyword, "size": size, "page": page}
