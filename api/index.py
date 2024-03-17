@@ -7,49 +7,66 @@ import postalservice as ps
 app = Flask(__name__)
 CORS(app)
 
+
 @app.after_request
 def add_no_cache_headers(response):
-    response.headers.add('Cache-Control', 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0')
-    response.headers.add('Pragma', 'no-cache')
+    response.headers.add(
+        "Cache-Control",
+        "no-store, no-cache, must-revalidate, post-check=0, pre-check=0",
+    )
+    response.headers.add("Pragma", "no-cache")
     return response
 
-@app.route('/')
+
+@app.route("/")
 def home():
-    if request.args.get('site', '') == 'mercari':
+    if request.args.get("site", "") == "mercari":
 
         mercari = ps.MercariService()
-        keyword = request.args.get('keyword', '')
-        size = request.args.get('size', '')
-        result = mercari.get_search_results({'keyword': keyword, 'size': size})
+        keyword = request.args.get("keyword", "")
+        size = request.args.get("size", "")
+        page = request.args.get("page", "")
+        result = mercari.get_search_results(
+            {"keyword": keyword, "size": size, "page": page}
+        )
         return result.to_json()
 
-    if request.args.get('site', '') == 'fril':
+    if request.args.get("site", "") == "fril":
 
         fril = ps.FrilService()
-        keyword = request.args.get('keyword', '')
-        size = request.args.get('size', '')
-        result = asyncio.run(fril.get_search_results_async({'keyword': keyword, 'size': size}))
+        keyword = request.args.get("keyword", "")
+        size = request.args.get("size", "")
+        page = request.args.get("page", "")
+        result = asyncio.run(
+            fril.get_search_results_async(
+                {"keyword": keyword, "size": size, "page": page}
+            )
+        )
         return result.to_json()
-        
-    return 'Hello, World! Hello, API!'
 
-@app.route('/about')
+    return "Hello, World! Hello, API!"
+
+
+@app.route("/about")
 def about():
-    return 'About'
+    return "About"
 
-@app.route('/mercari')
+
+@app.route("/mercari")
 def mercari():
     mercari = ps.MercariService()
-    keyword = request.args.get('keyword', '')
-    size = request.args.get('size', '')
-    result = mercari.get_search_results({'keyword': keyword, 'size': size})
+    keyword = request.args.get("keyword", "")
+    size = request.args.get("size", "")
+    result = mercari.get_search_results({"keyword": keyword, "size": size})
     return result.to_json()
 
-@app.route('/fril')
+
+@app.route("/fril")
 def fril():
     fril = ps.FrilService()
-    keyword = request.args.get('keyword', '')
-    size = request.args.get('size', '')
-    result = asyncio.run(fril.get_search_results_async({'keyword': keyword, 'size': size}))
+    keyword = request.args.get("keyword", "")
+    size = request.args.get("size", "")
+    result = asyncio.run(
+        fril.get_search_results_async({"keyword": keyword, "size": size})
+    )
     return result.to_json()
-
