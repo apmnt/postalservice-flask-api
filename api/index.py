@@ -26,6 +26,8 @@ def home():
         keyword = request.args.get("keyword", "")
         size = request.args.get("size", "")
         page = request.args.get("page", "")
+        if page == "":
+            page = 1
         result = mercari.get_search_results(
             {"keyword": keyword, "size": size, "page": page}
         )
