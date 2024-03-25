@@ -24,7 +24,7 @@ def home():
 
         mercari = ps.MercariService()
         keyword = request.args.get("keyword", "")
-        size = request.args.get("size", "")
+        size = request.args.get("size", None)
         page = int(request.args.get("page", ""))
         if page == "":
             page = 1
@@ -37,7 +37,7 @@ def home():
 
         fril = ps.FrilService()
         keyword = request.args.get("keyword", "")
-        size = request.args.get("size", "")
+        size = request.args.get("size", None)
         page = int(request.args.get("page", ""))
         if page == "":
             page = 1
